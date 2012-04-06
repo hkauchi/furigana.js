@@ -45,3 +45,13 @@ rubyタグを含むHTMLを返します。
 ## サンプル
 
 [example](http://hkauchi.github.com/furigana.js/)
+
+## 更新履歴
+
+1.0.1
+
+* ふりがなオブジェクトの parts() が機能しなかったのを修正
+
+1.0.0
+
+* 初期リリース

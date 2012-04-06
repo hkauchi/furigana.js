@@ -156,7 +156,7 @@
 		this.parts = function () {
 			var i, p = [], parts = f.sentence.parts;
 			for (i = 0; i < parts.length; i++)
-				p.add({ kana:parts[i].kana, kanji:parts[i].kanji });
+				p.push({ kana:parts[i].kana, kanji:parts[i].kanji });
 			return p;
 		};
 	};

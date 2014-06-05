@@ -1,6 +1,5 @@
 # Furigana.js
 Furigana.js は日本語入力でのふりがな入力や、ルビ付きHTML入力をサポートするjQueryプラグインです。
-（現時点で jQuery1.10 には未対応です）
 
 ## 使い方
 使い方は二通りあります。
@@ -31,9 +30,11 @@ Furigana.js は日本語入力でのふりがな入力や、ルビ付きHTML入�
 
 rubyタグを含むHTMLを返します。
 
-2.`kana()`
+2.`kana(), hiragana(), katakana()`
 
 入力中のテキストの全体のふりがなを返します。
+kana(),hiragana() はどちらもふりがなをひらがなで返します。
+katakana() はふりがなをカタカナで返します。
 
 3.`parts()`
 
@@ -48,6 +49,11 @@ rubyタグを含むHTMLを返します。
 [example](http://hkauchi.github.com/furigana.js/)
 
 ## 更新履歴
+
+1.0.2
+
+* ふりがなを直接エレメントにセットする場合、ふりがなのフィールドがバインド時点でクリアされてしまうのを修正
+* jQuery 1.9 以降に対応
 
 1.0.1
 

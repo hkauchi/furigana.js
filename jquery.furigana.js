@@ -328,7 +328,7 @@
 			var f = new Furigana(this);
 			f.sentence.init(toHiragana(value), this.value);
 			f.setCallback(callback);
-			$.data(this, "furigana", f);
+			//$.data(this, "furigana", f);
 			var ua = navigator.userAgent;
 			if (ua.match(/MSIE/) || ua.match(/Trident/)
 					|| ua.match(/Chrome/) || ua.match(/Safari/)) {

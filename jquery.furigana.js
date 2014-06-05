@@ -15,6 +15,7 @@
 		var h = "", c, i, j;
 		for (i = 0; i < s.length; i++) {
 			if (isKatakana(s.charAt(i))) {
+				h = s.substring(0, i);
 				for (j = i; j < s.length; j++) {
 					c = s.charAt(j);
 					if (isKatakana(c)) h += String.fromCharCode(c.charCodeAt(0) - 0x60);
@@ -25,7 +26,21 @@
 		}
 		return s;
 	}
-
+	function toKatakana(s) {
+		var h = "", c, i, j;
+		for (i = 0; i < s.length; i++) {
+			if (isHiragana(s.charAt(i))) {
+				h = s.substring(0, i);
+				for (j = i; j < s.length; j++) {
+					c = s.charAt(j);
+					if (isHiragana(c)) h += String.fromCharCode(c.charCodeAt(0) + 0x60);
+					else h += c;
+				}
+				return h;
+			}
+		}
+		return s;
+	}
 	var Part = function (kana, kanji) {
 		this.kana = kana;
 		this.kanji = kanji || null;
@@ -40,11 +55,32 @@
 	};
 
 	var Sentence = function () {
+		this.init("", "");
 		this.parts = [];
 		this.fixedParts = 0;
 	};
 	Sentence.prototype = {
 		length: 0,
+		init: function (kana, kanji) {
+			if (kana == "" && kanji == "") {
+				this.parts = [];
+				this.fixedParts = 0;
+				this.length = 0;
+				return;
+			}
+			if (kanji == "") {
+				this.parts = [new Part(kana, "")];
+				this.fixedParts = 1;
+				this.length = 0;
+				return;
+			}
+			this.parts = [new Part(kana, kanji.charAt(0))];
+			for (var i = 1; i < kanji.length; i++) {
+				this.parts[i] = new Part("", kanji.charAt(i));
+			}
+			this.fixedParts = kanji.length;
+			this.length = kanji.length;
+		},
 		add: function (kana, kanji, temp) {
 			var kjParts = [], knParts, i, c, n = 0;
 			var inkanji = false, kjStart = false, kjMode = false, reg, kj, kn;
@@ -146,6 +182,10 @@
 			for (i = 0; i < parts.length; i++)
 				s[i] = parts[i].kana;
 			return s.join("");
+		};
+		this.hiragana = this.kana;
+		this.katakana = function () {
+			return toKatakana(this.kana());
 		};
 		this.html = function () {
 			var i, s = [], parts = f.sentence.parts;
@@ -259,16 +299,18 @@
 	$.fn.furigana = function () {
 		var callback = null;
 		var a = arguments;
+		var value = "";
 		if (a.length == 1) {
 			if ($.isFunction(a[0])) {
 				callback = a[0];
 			}
 		} else if (a.length == 2) {
 			var type = a[0];
-			var obj = a[1];
+			var obj = $(a[1]);
+			value = toHiragana(obj.val());
 			callback = function (fo) {
 				var text = fo[type]();
-				$(obj).each(function () {
+				obj.each(function () {
 					if (this.tagName == "INPUT" || this.tagName == "TEXTAREA") {
 						this.value = text;
 					} else {
@@ -279,9 +321,12 @@
 		}
 		this.each(function () {
 			var f = new Furigana(this);
+			f.sentence.init(toHiragana(value), this.value);
 			f.setCallback(callback);
-			//$.data(this, "furigana", furigana);
-			if ($.browser.webkit || $.browser.msie) {
+			$.data(this, "furigana", f);
+			var ua = navigator.userAgent;
+			if (ua.match(/MSIE/) || ua.match(/Trident/)
+					|| ua.match(/Chrome/) || ua.match(/Safari/)) {
 				var watch = function () {
 					setTimeout(function () { f.watch(); }, 0);
 				};

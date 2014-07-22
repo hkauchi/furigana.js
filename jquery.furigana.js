@@ -196,7 +196,7 @@
 		this.parts = function () {
 			var i, p = [], parts = f.sentence.parts;
 			for (i = 0; i < parts.length; i++)
-				p.add({ kana:parts[i].kana, kanji:parts[i].kanji });
+				p.push({ kana:parts[i].kana, kanji:parts[i].kanji });
 			return p;
 		};
 	};
@@ -328,7 +328,7 @@
 			var f = new Furigana(this);
 			f.sentence.init(toHiragana(value), this.value);
 			f.setCallback(callback);
-			$.data(this, "furigana", f);
+			//$.data(this, "furigana", f);
 			var ua = navigator.userAgent;
 			if (ua.match(/MSIE/) || ua.match(/Trident/)
 					|| ua.match(/Chrome/) || ua.match(/Safari/)) {

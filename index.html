@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>Furigana.js Example</title>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="jquery.furigana.js"></script>
+<script>
+$(function () {
+	$("#kanji1")
+		.furigana("kana", $("#hiragana1"))
+		.furigana("katakana", $("#katakana1"));
+	$("#kanji2")
+		.furigana("kana", $("#hiragana2"))
+		.furigana("katakana", $("#katakana2"));
+	$("#text1")
+		.furigana("html", $("#html"));
+	$("#text2")
+		.furigana(function (fo) {
+			$("#current").html(fo.html() || "<br>");
+		})
+		.keydown(function (e) {
+			if (e.which == 13) {
+				$("#fixed").append($("#current").html() + "<br>");
+				this.value = "";
+			}
+		});
+});
+</script>
+<style>
+#content { border:1px solid #ccc; }
+#current { width:80%; }
+input[type=text], textarea { border: none; }
+#text1, #text2, #kana, #html { width:80%; }
+.output { background:#ffd; }
+#html { height:6em; }
+h4 { margin:20px 0px; color: white; font-weight: normal; }
+h5 { margin:10px 0px 5px; color: white; font-weight: normal; }
+th { color: white; font-weight: normal; }
+.sample { background:#6c6; margin:20px 0px; padding:15px; }
+a { color:#383; font-size:0.8exm; }
+</style>
+</head>
+<body>
+<h1>Furigana.js</h1>
+<p>Furigana.js は日本語入力でのふりがな入力や、ルビ付きHTML入力をサポートするjQueryプラグインです。</p>
+<a href="https://github.com/hkauchi/furigana.js">[repository]</a>
+<a href="https://github.com/hkauchi/furigana.js/tags">[download]</a>
+<div class="sample">
+<h4>サンプル 1</h4>
+<table>
+  <tr>
+    <th>名前</th>
+    <td><input type="text" id="kanji1"> <input type="text" id="kanji2"></td>
+  </tr>
+  <tr>
+    <th>ふりがな</th>
+    <td><input type="text" id="hiragana1"> <input type="text" id="hiragana2"></td>
+  </tr>
+  <tr>
+    <th>フリガナ</th>
+    <td><input type="text" id="katakana1"> <input type="text" id="katakana2"></td>
+  </tr>
+</table>
+</div>
+<div class="sample">
+<h4>サンプル 2</h4>
+<input type="text" id="text1">
+<h5>ルビ付きHTML</h5>
+<textarea id="html" class="output" readonly></textarea>
+</div>
+<div class="sample">
+<h4>サンプル 3 (Enterで改行)</h4>
+<div id="fixed"></div>
+<div id="current" class="output"></div>
+<input type="text" id="text2">
+</div>
+<div style="height:300px"></div>
+</body>
+</html>

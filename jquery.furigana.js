@@ -307,7 +307,7 @@
 		} else if (a.length == 2) {
 			var type = a[0];
 			var obj = $(a[1]);
-			if (obj.size()) {
+			if (obj.length) {
 				var o = obj[0];
 				if (o.tagName == "INPUT" || o.tagName == "TEXTAREA") {
 					value = toHiragana(obj.val());

@@ -6,7 +6,7 @@ Furigana.js は日本語入力でのふりがな入力や、ルビ付きHTML入�
 
 1.入力中のテキストに対応するふりがなやHTMLを直接エレメントにセットする。
 
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="jquery.furigana.js"></script>
     <script>
       $("#text1").furigana("kana", $("#kana"));
@@ -15,7 +15,7 @@ Furigana.js は日本語入力でのふりがな入力や、ルビ付きHTML入�
 
 2.入力中のテキストの状態を保持するふりがなオブジェクトをコールバック関数で受け取る。
 
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="jquery.furigana.js"></script>
     <script>
       $("#text").furigana(function (fo) {
@@ -46,9 +46,13 @@ katakana() はふりがなをカタカナで返します。
 
 ## サンプル
 
-[example](http://hkauchi.github.com/furigana.js/)
+[example](https://hkauchi.github.io/furigana.js/)
 
 ## 更新履歴
+
+1.0.3
+
+* jQuery 3.0 以降に対応
 
 1.0.2
 
